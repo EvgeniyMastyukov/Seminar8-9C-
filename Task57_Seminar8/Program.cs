@@ -20,7 +20,7 @@ int[,] GetArray(int a, int b)
     {
         for (int j = 0; j < arr.GetLength(1); j++)
         {
-            arr[i, j] = rnd.Next(10);
+            arr[i, j] = rnd.Next(9);
         }
     }
     return arr;
@@ -32,7 +32,7 @@ void PrintArray(int[,] arr)
     {
         for (int j = 0; j < arr.GetLength(1); j++)
         {
-            Console.Write(arr[i, j] + " ");
+            Console.Write(arr[i, j] + "\t");
         }
         Console.WriteLine();
     }
@@ -40,40 +40,116 @@ void PrintArray(int[,] arr)
 int[,] array = GetArray(rows, columns);
 PrintArray(array);
 
-// string[] str = new string[count];
-
-
-for (int i = 0; i < array.GetLength(0); i++)
+void PrintOneArr(int[] arr)
 {
-    int count = 0;
-    for (int j = 0; j < array.GetLength(1) - 1; j++)
+    for (int i = 0; i < arr.Length; i++)
     {
-
-        int n = 0;
-        if (array[i, j] == array[i, j + 1]) 
-        {
-           count += 2;
-            string[] str = new string[n + 1];
-            for (int k = 0; k < str.Length; k++)
-            {
-                str[k] = $"{array[i, j]}  встречается {count}  раз";
-                n++;
-                Console.WriteLine(str[k]);
-            }
-        }
-        else
-        {
-            string[] str = new string[n + 1];
-            for (int k = 0; k < str.Length; k++)
-            {
-                str[k] = $"{array[i, j+1]}  встречается {count}  раз";
-                n++;
-                Console.WriteLine(str[k]);
-            }
-        }
-
-
-
-
+        Console.Write(arr[i] + "\t ");
     }
 }
+
+int[] GetFrequencyList(int[,] arr)
+{
+    int[] oneArr = new int[arr.GetLength(0) * arr.GetLength(1)];
+    int k = 0;
+    for (int i = 0; i < arr.GetLength(0); i++)
+    {
+        for (int j = 0; j < arr.GetLength(1); j++)
+        {
+            oneArr[k] = arr[i, j];
+            k++;
+        }
+    }
+    Console.WriteLine();
+    PrintOneArr(oneArr);
+    int[] oneArr1 = GetSort(oneArr);
+
+    // int sum = 0;
+    // string[,] Voc = new string[sum, 2];
+    // int count = 0;
+    // for (int i = 0; i < oneArr1.Length-1; i+=count)
+    // {
+
+
+    //     sum = oneArr1.Length - count;
+    //     for (int j = i + 1; j < oneArr1.Length; j++)
+    //     {
+
+    //         if (oneArr1[i] == oneArr1[j])
+    //         {
+    //             count++;
+    //         }
+    //         else break;
+    //     }
+    // }
+    return oneArr1;
+}
+
+int[] resaltArr = GetFrequencyList(array);
+System.Console.WriteLine();
+PrintOneArr(resaltArr);
+
+int[] GetSort(int[] arr)
+{
+    int size = arr.Length;
+    while (size > 1)
+    {
+        int imax = 0;
+        for (int i = 0; i < size; i++)
+        {
+            if (arr[imax] < arr[i])
+            {
+                imax = i;
+            }
+        }
+        int temp = arr[imax];
+        arr[imax] = arr[size - 1];
+        arr[size - 1] = temp;
+        size--;
+    }
+    return arr;
+}
+
+int count = 0;
+for (int i = 0; i < resaltArr.Length - 1; i++)
+{
+    for (int j = i + 1; j < resaltArr.Length; j++)
+    {
+        if (resaltArr[i] == resaltArr[j])
+        {
+            count++;
+            i++;
+        }
+    }
+}
+int sumUnik = resaltArr.Length - count;
+Console.WriteLine($"sumUnik = {sumUnik} count = {count}");
+
+int[] voc = new int[sumUnik];
+voc[0] = resaltArr[0];
+for (int i = 1; i < resaltArr.Length; i++)
+{
+
+    if (resaltArr[i] != voc[i - 1])
+    {
+        voc[i] = resaltArr[i];
+
+    }
+    
+}
+
+System.Console.WriteLine();
+PrintOneArr(voc);
+
+
+
+
+
+
+
+
+
+
+
+
+
