@@ -64,24 +64,6 @@ int[] GetFrequencyList(int[,] arr)
     PrintOneArr(oneArr);
     int[] oneArr1 = GetSort(oneArr);
 
-    // int sum = 0;
-    // string[,] Voc = new string[sum, 2];
-    // int count = 0;
-    // for (int i = 0; i < oneArr1.Length-1; i+=count)
-    // {
-
-
-    //     sum = oneArr1.Length - count;
-    //     for (int j = i + 1; j < oneArr1.Length; j++)
-    //     {
-
-    //         if (oneArr1[i] == oneArr1[j])
-    //         {
-    //             count++;
-    //         }
-    //         else break;
-    //     }
-    // }
     return oneArr1;
 }
 
@@ -132,17 +114,53 @@ for (int i = 1; i < voc.Length; i++)
 {
     for (int j = flag; j < resaltArr.Length; j++)
     {
-        if (resaltArr[j] != voc[i - 1]) 
+        if (resaltArr[j] != voc[i - 1])
         {
             voc[i] = resaltArr[j];
             flag = j;
-            break;            
+            break;
         }
     }
 }
 
-System.Console.WriteLine();
+string[,] voc1 = new string[sumUnik, 2];
+int s = 0;
+for (int i = 0; i < voc1.GetLength(0); i++)
+{
+    voc1[i, s] = $"{voc[i]}";
+    System.Console.WriteLine();
+
+}
+int col = 0;
+for (int i = 0; i < voc.Length; i++)
+{
+    col = 0;
+    for (int j = 0; j < resaltArr.Length; j++)
+    {
+        if (voc[i] == resaltArr[j])
+            col++;
+    }
+    voc1[i, 1] = $"встречается {col} раз";
+}
+
 PrintOneArr(voc);
+System.Console.WriteLine();
+void PrintStringArray(string[,] arr)
+{
+    for (int i = 0; i < arr.GetLength(0); i++)
+    {
+        for (int j = 0; j < arr.GetLength(1); j++)
+        {
+            Console.Write(arr[i, j] + " ");
+        }
+        Console.WriteLine();
+    }
+}
+PrintStringArray(voc1);
+
+
+
+
 
 
 
