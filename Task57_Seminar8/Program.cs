@@ -127,15 +127,18 @@ Console.WriteLine($"sumUnik = {sumUnik} count = {count}");
 
 int[] voc = new int[sumUnik];
 voc[0] = resaltArr[0];
-for (int i = 1; i < resaltArr.Length; i++)
+int flag = 1;
+for (int i = 1; i < voc.Length; i++)
 {
-
-    if (resaltArr[i] != voc[i - 1])
+    for (int j = flag; j < resaltArr.Length; j++)
     {
-        voc[i] = resaltArr[i];
-
+        if (resaltArr[j] != voc[i - 1]) 
+        {
+            voc[i] = resaltArr[j];
+            flag = j;
+            break;            
+        }
     }
-    
 }
 
 System.Console.WriteLine();
